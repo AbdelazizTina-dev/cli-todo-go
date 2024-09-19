@@ -6,6 +6,8 @@ import (
 	"io"
 	"net/http"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 type Forecast struct {
@@ -47,9 +49,15 @@ func main() {
 			continue
 		}
 
-		line := fmt.Sprintf("%s: %.0f°", t.Format("15:04"), data.Hourly.Temperature[i])
+		temp := data.Hourly.Temperature[i]
 
-		fmt.Println(line)
+		line := fmt.Sprintf("%s: %.1f°", t.Format("15:04"), temp)
+
+		if temp >= 20 {
+			color.Red(line)
+		} else {
+			color.Cyan(line)
+		}
 	}
 
 }
